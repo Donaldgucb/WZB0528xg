@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>日用百货</key>
+	<string>icon_dailynecessities.png</string>
+	<key>食品农业</key>
+	<string>icon_food.png</string>
+	<key>家纺家装</key>
+	<string>icon_bedroom.png</string>
+	<key>童装母婴</key>
+	<string>icon_baby.png</string>
+	<key>美妆日化</key>
+	<string>icon_beautify.png</string>
+	<key>数码家电</key>
+	<string>icon_computer.png</string>
+	<key>鞋包配饰</key>
+	<string>icon_shoes.png</string>
+	<key>服装内衣</key>
+	<string>icon_clothes.png</string>
+	<key>照明仪表安防</key>
+	<string>icon_lighting.png</string>
+	<key>电子电工</key>
+	<string>icon_electrical.png</string>
+	<key>机械五金</key>
+	<string>icon_mechanical.png</string>
+	<key>包装</key>
+	<string>icon_package.png</string>
+	<key>纺织</key>
+	<string>icon_leather.png</string>
+	<key>橡胶塑料</key>
+	<string>icon_plastic.png</string>
+	<key>冶金钢材</key>
+	<string>icon_metallurgy.png</string>
+	<key>化工精细</key>
+	<string>icon_chemical.png</string>
+	<key>采购必应</key>
+	<string>icon_purchase.png</string>
+	<key>服务</key>
+	<string>icon_service.png</string>
+</dict>
+</plist>

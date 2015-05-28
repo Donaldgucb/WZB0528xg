@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>衣服箱包</key>
+	<string>E-01.png</string>
+	<key>家纺建材</key>
+	<string>E-02.png</string>
+	<key>日用百货</key>
+	<string>E-03.png</string>
+	<key>母婴玩具</key>
+	<string>E-04.png</string>
+	<key>机械五金</key>
+	<string>E-05.png</string>
+	<key>汽车用品</key>
+	<string>E-06.png</string>
+	<key>电子电工</key>
+	<string>E-07.png</string>
+	<key>化工原料</key>
+	<string>E-08.png</string>
+	<key>其他</key>
+	<string>E-09.png</string>
+</dict>
+</plist>

@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7531" systemVersion="14D131" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="TalentApplicationController">
+            <connections>
+                <outlet property="ageTextField" destination="UON-xq-gLW" id="1GM-Hi-1yX"/>
+                <outlet property="aliPayAccountTextField" destination="dl1-0e-MaT" id="Qik-0J-M1u"/>
+                <outlet property="classicalCaseTextField" destination="9XO-Ba-gE2" id="pKi-Y5-3n6"/>
+                <outlet property="detailSkillsTextField" destination="110-P6-Y4w" id="tNG-qT-Qgz"/>
+                <outlet property="emailTextField" destination="fGS-W2-fQQ" id="m8i-T7-XTc"/>
+                <outlet property="hornorTextField" destination="NPH-fV-YNE" id="SOG-qN-bVd"/>
+                <outlet property="manButton" destination="s2c-Ry-on9" id="H4Z-KP-Qws"/>
+                <outlet property="nameTextField" destination="w3r-t6-kIo" id="YKe-Lz-mOS"/>
+                <outlet property="phoneTextField" destination="dQu-vl-hLX" id="zhG-jo-HeC"/>
+                <outlet property="scroll" destination="IZC-Gy-NH3" id="aAB-ea-kyo"/>
+                <outlet property="searchKeyWordTextField" destination="cmj-c5-x3p" id="gip-0q-NJ8"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+                <outlet property="womanButton" destination="m2I-6h-dG6" id="jZF-dG-TAk"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IZC-Gy-NH3">
+                    <rect key="frame" x="0.0" y="64" width="320" height="550"/>
+                    <subviews>
+                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" placeholder="姓名" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="w3r-t6-kIo" customClass="DemoTextField">
+                            <rect key="frame" x="131" y="14" width="169" height="40"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <textInputTraits key="textInputTraits"/>
+                        </textField>
+                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" placeholder="邮箱" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fGS-W2-fQQ" customClass="DemoTextField">
+                            <rect key="frame" x="20" y="108" width="280" height="40"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <textInputTraits key="textInputTraits"/>
+                        </textField>
+                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" placeholder="工作经历" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="110-P6-Y4w" customClass="DemoTextField">
+                            <rect key="frame" x="20" y="156" width="280" height="40"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <textInputTraits key="textInputTraits"/>
+                        </textField>
+                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" placeholder="个性标签" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="cmj-c5-x3p" customClass="DemoTextField">
+                            <rect key="frame" x="20" y="204" width="280" height="40"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <textInputTraits key="textInputTraits"/>
+                        </textField>
+                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" placeholder="手机号码" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dQu-vl-hLX" customClass="DemoTextField">
+                            <rect key="frame" x="20" y="252" width="280" height="40"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                        </textField>
+                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" placeholder="生日" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="UON-xq-gLW" customClass="DemoTextField">
+                            <rect key="frame" x="20" y="300" width="280" height="40"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                        </textField>
+                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" placeholder="经典案例" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="9XO-Ba-gE2" customClass="DemoTextField">
+                            <rect key="frame" x="20" y="348" width="280" height="40"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <textInputTraits key="textInputTraits"/>
+                        </textField>
+                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" placeholder="个人荣誉" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="NPH-fV-YNE" customClass="DemoTextField">
+                            <rect key="frame" x="20" y="396" width="280" height="40"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <textInputTraits key="textInputTraits"/>
+                        </textField>
+                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" placeholder="支付宝账号" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dl1-0e-MaT" customClass="DemoTextField">
+                            <rect key="frame" x="20" y="444" width="280" height="40"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <textInputTraits key="textInputTraits"/>
+                        </textField>
+                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="s2c-Ry-on9">
+                            <rect key="frame" x="167" y="73" width="60" height="20"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="10" maxY="0.0"/>
+                            <state key="normal" title="男" image="icon_point_on.png">
+                                <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <connections>
+                                <action selector="manButtonTouch:" destination="-1" eventType="touchUpInside" id="Eje-N6-J1g"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="m2I-6h-dG6">
+                            <rect key="frame" x="225" y="73" width="60" height="20"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="10" maxY="0.0"/>
+                            <state key="normal" title="女" image="icon_point.png">
+                                <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <connections>
+                                <action selector="womanButtonTouch:" destination="-1" eventType="touchUpInside" id="OgI-jc-i78"/>
+                            </connections>
+                        </button>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="性别：" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S3i-Is-AUD">
+                            <rect key="frame" x="131" y="73" width="45" height="20"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                </scrollView>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <point key="canvasLocation" x="334" y="201"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="icon_point.png" width="20" height="20"/>
+        <image name="icon_point_on.png" width="20" height="20"/>
+    </resources>
+    <simulatedMetricsContainer key="defaultSimulatedMetrics">
+        <simulatedStatusBarMetrics key="statusBar"/>
+        <simulatedOrientationMetrics key="orientation"/>
+        <simulatedScreenMetrics key="destination" type="retina4"/>
+    </simulatedMetricsContainer>
+</document>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<string>产品</string>
+	<string>服务</string>
+	<string>采购必应</string>
+	<string>日用百货</string>
+	<string>食品农业</string>
+	<string>家纺家装</string>
+	<string>童装母婴</string>
+	<string>美妆日化</string>
+	<string>数码家电</string>
+	<string>鞋包配饰</string>
+	<string>服装内衣</string>
+	<string>照明</string>
+	<string>电子电工</string>
+	<string>机械五金</string>
+	<string>包装</string>
+	<string>纺织</string>
+	<string>化工</string>
+	<string>冶金钢材</string>
+	<string>橡胶塑料</string>
+</array>
+</plist>
