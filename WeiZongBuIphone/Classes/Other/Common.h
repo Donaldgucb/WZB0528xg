@@ -28,7 +28,7 @@
 #define MyLog(...)
 #endif
 
-#define kIP @"http://192.168.10.110/"
+#define kIP @"http://121.40.85.6/"
 
 //展会信息
 #define kExhibitionUrl @"wzbAppService/showActivity/getShowClassList.htm?"
