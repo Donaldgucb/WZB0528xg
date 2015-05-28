@@ -227,9 +227,6 @@
     
     [self presentViewController:nav animated:YES completion:nil];
     
-//    [self dismissViewControllerAnimated:NO completion:nil];
-//    RegistrationViewController *registerController = [[RegistrationViewController alloc] init];
-//    [[QHSliderViewController sharedSliderController].navigationController pushViewController:registerController animated:YES];
 }
 
 
@@ -254,48 +251,11 @@
         [SVProgressHUD showErrorWithStatus:@"密码不能为空"];
     else
     {
-        BOOL bl=YES;
-        if(bl)
-        {
-            if(_passwordTextField1.text.length>5 && _passwordTextField1.text.length<50)
-                [self XGuserLogin];
-            else
-                [SVProgressHUD showErrorWithStatus:@"密码不能少于6位."];
-    
-        }
+        if(_passwordTextField1.text.length>5 && _passwordTextField1.text.length<50)
+            [self XGuserLogin];
+        else
+            [SVProgressHUD showErrorWithStatus:@"密码不能少于6位."];
     }
-}
-
-#pragma mark 用户登录
--(void)userLogin
-{
-    nickName=@"";
-    chectString=@"0";
-    NSString *user = [NSString stringWithFormat:@"username=%@",_usernameTextField.text];
-    NSString *password = [NSString stringWithFormat:@"password=%@",_passwordTextField1.text];
-    NSString *token;
-    PlistDB *plist = [[PlistDB alloc] init];
-    NSMutableArray *userInfo = [NSMutableArray array];
-    userInfo = [plist getDataFilePathUserInfoPlist];
-        token =[NSString stringWithFormat:@"token="];
-    
-    NSMutableArray *baiduArray = [plist getDataFilePathBaiduIDPlist];
-    NSString *baiduString = @"";
-    NSString *channelString = @"0";
-    if (baiduArray.count>0) {
-        baiduString = [baiduArray firstObject];
-        channelString = [baiduArray objectAtIndex:1];
-    }
-    
-    NSString *channelID = [NSString stringWithFormat:@"channelId=%@",channelString];
-    NSString *baiduID= [NSString stringWithFormat:@"baiduId=%@",baiduString];
-    NSString *deviceString = @"deviceId=1";
-    
-    NSString *urlString = [NSString stringWithFormat:@"%@%@&%@&%@&%@&%@&%@",kLoginUrl,user,password,token,baiduID,deviceString,channelID];
-    [[WZBAPI sharedWZBAPI] requestWithURL:urlString delegate:self];
-    statusInt=0;
-    [self performSelector:@selector(showStatus) withObject:nil afterDelay:1.0f];
-    
 }
 
 

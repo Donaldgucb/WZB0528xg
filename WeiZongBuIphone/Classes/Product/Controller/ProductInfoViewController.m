@@ -189,7 +189,7 @@
             _token = [resultDict objectForKey:@"token"];
             [userArray replaceObjectAtIndex:0 withObject:_token];
             [plist setDataFilePathUserInfoPlist:userArray];
-            [_collectionButton setBackgroundImage:[UIImage imageNamed:@"icon_Pcollect_hl.png"] forState:UIControlStateNormal];
+            [_collectionButton setBackgroundImage:[UIImage imageNamed:@"icon_collect_hl.png"] forState:UIControlStateNormal];
         }
         else
         {
@@ -243,7 +243,7 @@
         array = [plist getDataFilePathProductCollectionPlist];
         for (NSString *name in array) {
             if ([_Fname isEqualToString:name]) {
-                [_collectionButton setBackgroundImage:[UIImage imageNamed:@"icon_Pcollect_hl.png"] forState:UIControlStateNormal];
+                [_collectionButton setBackgroundImage:[UIImage imageNamed:@"icon_collect_hl.png"] forState:UIControlStateNormal];
                 _checkString=@"1";
                 break;
             }

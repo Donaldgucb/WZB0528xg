@@ -104,7 +104,6 @@ NSString *kAttributeTitle = @"Attributed string operation successfully completed
     [self requestAndGetRequireInfo];
     
 
-    NSLog(@"2222==%@",_requireID);
     
     if (_CountString) {
         PlistDB *plist = [[PlistDB alloc] init];
@@ -119,7 +118,7 @@ NSString *kAttributeTitle = @"Attributed string operation successfully completed
                 dictt=[array objectAtIndex:i];
                 NSString *string = [dictt objectForKey:_requireID];
                 if (string) {
-                    if (![_CountString isEqualToString:string]) {
+                    if ([_CountString integerValue] !=[string integerValue]) {
                         [dictt setValue:_CountString forKey:_requireID];
                         [array replaceObjectAtIndex:i withObject:dictt];
                         addCount=0;
@@ -477,9 +476,6 @@ NSString *kAttributeTitle = @"Attributed string operation successfully completed
         _currentUserLevel = [dict objectForKey:@"currentUserLevel"];
         _selfAccountId = [dict objectForKey:@"selfAccountId"];
         _partnerLevel = [dict objectForKey:@"partnerLevel"];
-        NSLog(@"currentLevel==%@",_currentUserLevel);
-        
-        NSLog(@"partnerLevel==%@",_currentUserLevel);
         bidArray = [NSMutableArray array];
         partnerIDArray =[NSMutableArray array];
         bidArray = [dict objectForKey:@"bids"];

@@ -51,7 +51,7 @@
     BOOL isCollect;
     NSMutableArray *domainIDArray;
 
-    
+    int statusInt;
 }
 
 @property (strong, nonatomic) UITableView *tableView;
@@ -156,7 +156,6 @@
     {
      
         isClickCollectionButton=YES;
-        WZBAPI *api = [[WZBAPI alloc] init];
         if (!isCollect) {
             isCollect=YES;
             NSString *paramString = @"type=3&";
@@ -168,8 +167,10 @@
             paramString = [NSString stringWithFormat:@"%@%@%@%@",paramString,collectionID,title,imageUrl];
             
             paramString = [paramString stringByAddingPercentEscapesUsingEncoding: NSUTF8StringEncoding];
-            [api requestWithURL:addCollectionUrl paramsString:paramString delegate:self];
-            
+            [[WZBAPI sharedWZBAPI] requestWithURL:addCollectionUrl paramsString:paramString delegate:self];
+            statusInt=0;
+            [self performSelector:@selector(showStatus) withObject:nil afterDelay:1.0f];
+
             
             
         }
@@ -192,7 +193,6 @@
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     if (buttonIndex==1) {
-        WZBAPI *api = [[WZBAPI alloc] init];
         isCollect=NO;
         NSString *url = @"wzbAppService/collection/delCollection/";
         NSString *accountString = [StaticMethod getAccountString];
@@ -201,10 +201,22 @@
         }
         url = [NSString stringWithFormat:@"%@%@.htm?",url,_collectionID];
         url = [NSString stringWithFormat:@"%@%@",url,accountString];
-        [api requestWithURL:url delegate:self];
+        [[WZBAPI sharedWZBAPI] requestWithURL:url delegate:self];
+        statusInt=0;
+        [self performSelector:@selector(showStatus) withObject:nil afterDelay:1.0f];
+
+    }
+}
+
+
+-(void)showStatus
+{
+    if (statusInt==0) {
+        [SVProgressHUD showWithStatus:@"拼命加载中..." maskType:SVProgressHUDMaskTypeClear];
         
     }
 }
+
 
 
 #pragma mark 请求数据
@@ -215,7 +227,8 @@
     
     
     [[WZBAPI sharedWZBAPI] requestWithURL:_partnerUrl paramsString:accountString delegate:self];
-    
+    statusInt=0;
+    [self performSelector:@selector(showStatus) withObject:nil afterDelay:1.0f];
     
 }
 
@@ -223,6 +236,9 @@
 #pragma mark 请求结果
 -(void)request:(WZBRequest *)request didFinishLoadingWithResult:(id)result
 {
+    
+     statusInt = 1;
+    [SVProgressHUD dismiss];
     if (isClickCollectionButton) {
         PlistDB *plist = [[PlistDB alloc] init];
         NSMutableArray *userArray = [plist getDataFilePathUserInfoPlist];
@@ -308,6 +324,7 @@
 
 -(void)request:(WZBRequest *)request didFailWithError:(NSError *)error
 {
+     statusInt = 1;
     [SVProgressHUD showErrorWithStatus:@"加载失败,请检查网络!"];
 }
 

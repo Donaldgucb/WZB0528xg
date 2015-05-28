@@ -139,7 +139,7 @@
 #pragma mark tableView数据源方法
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 1;
+    return _messageListArray.count;
 }
 
 

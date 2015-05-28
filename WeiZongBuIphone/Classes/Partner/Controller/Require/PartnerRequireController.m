@@ -217,7 +217,6 @@
     
     NSArray *array = result;
     _newCount = array.count;
-    NSLog(@"newCount==%ld",_newCount);
     if (_newCount<15) {
         requireInt=1;
         _listTable.footerPullToRefreshText = @"没有更多数据了";
@@ -242,7 +241,6 @@
         [_requireArray addObject:partnerRequire];
     }
     _page = _requireArray.count;
-    NSLog(@"%ld",(long)_page);
     [_listTable reloadData];
 }
 
