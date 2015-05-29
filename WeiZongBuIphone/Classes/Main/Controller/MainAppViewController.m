@@ -213,12 +213,18 @@
     layout.itemSize = CGSizeMake(kItemW, kItemH); // 每一个网格的尺寸
     layout.minimumLineSpacing = 20; // 每一行之间的间距
     
-    UICollectionView *collect = [[UICollectionView alloc] initWithFrame:CGRectMake(0, kTitleImageH+15, self.view.frame.size.width, self.view.frame.size.height-44-kTitleImageH-15)collectionViewLayout:layout];
+    UICollectionView *collect = [[UICollectionView alloc] initWithFrame:CGRectMake(0, kTitleImageH+15, self.view.frame.size.width, self.view.frame.size.height-44-15)collectionViewLayout:layout];
     collect.delegate=self;
     collect.dataSource=self;
     [scroll addSubview:collect];
     [collect registerNib:[UINib nibWithNibName:@"CollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"collectioncell"];
     collect.backgroundColor = [UIColor whiteColor];
+    if (isIphone4) {
+        scroll.scrollEnabled=YES;
+    }
+    else
+        scroll.scrollEnabled=NO;
+    
 
 }
 
