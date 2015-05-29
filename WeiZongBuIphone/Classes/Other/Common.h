@@ -16,6 +16,8 @@
 // 1.判断是否为iPhone5的宏
 #define iPhone5 ([UIScreen mainScreen].bounds.size.height == 568)
 
+#define isIphone4 ([UIScreen mainScreen].bounds.size.height == 480)
+
 
 #define ScrennWidth ([UIScreen mainScreen].bounds.size.width)
 #define ScrennHeight ([UIScreen mainScreen].bounds.size.height)
