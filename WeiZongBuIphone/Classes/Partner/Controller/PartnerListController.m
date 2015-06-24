@@ -411,6 +411,8 @@
 
 -(void)request:(WZBRequest *)request didFailWithError:(NSError *)error
 {
+    NSLog(@"%@",error);
+    
     statusInt = 1;
     [SVProgressHUD showErrorWithStatus:@"加载失败,请重试.."];
 }

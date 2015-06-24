@@ -304,6 +304,8 @@ NSString *kAttributeTitle = @"Attributed string operation successfully completed
         //点击接标
         else
         {
+            
+            
             SCLAlertView *alert = [[SCLAlertView alloc] init];
             
             UITextField *textField = [alert addTextField:@"请用一句话来描述您的此次投标"];
