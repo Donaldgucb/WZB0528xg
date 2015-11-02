@@ -36,6 +36,7 @@
     NSString* _defaultCode;
     NSString* _defaultCountryName;
     NSString *registSuccessString;
+    BOOL _isCheckNumber;
 }
 
 @end
@@ -140,8 +141,8 @@
     {
         NSString *paramString = [NSString stringWithFormat:@"username=%@",self.telField.text];
         
+        _isCheckNumber=YES;
         [[WZBAPI sharedWZBAPI] requestWithURL:checkPhoneNumber paramsString:paramString delegate:self];
-        
         
     }
     if (0==buttonIndex) {
@@ -154,44 +155,82 @@
 -(void)request:(WZBRequest *)request didFinishLoadingWithResult:(id)result
 {
     NSDictionary *dict = result;
-    NSString *msg = [dict objectForKey:@"msg"];
-    if ([msg isEqualToString:@"ok"]) {
-        VerifyViewController* verify=[[VerifyViewController alloc] init];
-        NSString* str2=[self.areaCodeField.text stringByReplacingOccurrencesOfString:@"+" withString:@""];
-        [verify setPhone:self.telField.text AndAreaCode:str2];
-        
-        [SMS_SDK getVerifyCodeByPhoneNumber:self.telField.text AndZone:str2 result:^(enum SMS_GetVerifyCodeResponseState state) {
-            if (1==state) {
-                [self.navigationController pushViewController:verify animated:YES];
-                
-            }
-            else if(0==state)
-            {
-                NSLog(@"block 获取验证码失败");
-                NSString* str=[NSString stringWithFormat:NSLocalizedString(@"codesenderrormsg", nil)];
-                UIAlertView* alert=[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"codesenderrtitle", nil) message:str delegate:self cancelButtonTitle:NSLocalizedString(@"sure", nil) otherButtonTitles:nil, nil];
-                [alert show];
-            }
-            else if (SMS_ResponseStateMaxVerifyCode==state)
-            {
-                NSString* str=[NSString stringWithFormat:NSLocalizedString(@"maxcodemsg", nil)];
-                UIAlertView* alert=[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"maxcode", nil) message:str delegate:self cancelButtonTitle:NSLocalizedString(@"sure", nil) otherButtonTitles:nil, nil];
-                [alert show];
-            }
-            else if(SMS_ResponseStateGetVerifyCodeTooOften==state)
-            {
-                NSString* str=[NSString stringWithFormat:NSLocalizedString(@"codetoooftenmsg", nil)];
-                UIAlertView* alert=[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"notice", nil) message:str delegate:self cancelButtonTitle:NSLocalizedString(@"sure", nil) otherButtonTitles:nil, nil];
-                [alert show];
-            }
-        }];
+    NSLog(@"%@",dict);
+    if (_isCheckNumber) {
+        NSString *msg = [dict objectForKey:@"msg"];
+        if ([msg isEqualToString:@"ok"]){
+            _isCheckNumber=NO;
+             NSString *paramString = [NSString stringWithFormat:@"mobile=%@",self.telField.text];
+            
+            [[WZBAPI sharedWZBAPI] requestWithURL:sendRegisterMessage paramsString:paramString delegate:self];
+        }
+        else
+        {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"温馨提示" message:@"您的手机号码已注册" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
+            [alert show];
+            [self dismissViewControllerAnimated:YES completion:nil];
+        }
     }
     else
     {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"温馨提示" message:@"您的手机号码已注册" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
-        [alert show];
-        [self dismissViewControllerAnimated:YES completion:nil];
+         NSString *msg = [dict objectForKey:@"ret"];
+        if (![@"error" isEqualToString:msg]) {
+            VerifyViewController* verify=[[VerifyViewController alloc] init];
+            NSString* str2=[self.areaCodeField.text stringByReplacingOccurrencesOfString:@"+" withString:@""];
+            [verify setPhone:self.telField.text AndAreaCode:str2];
+            verify.checkCode = msg;
+            verify.phoneNumber = self.telField.text;
+            [self.navigationController pushViewController:verify animated:YES];
+        }
+        else
+        {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"温馨提示" message:@"验证码发送失败,请稍后再试" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
+            [alert show];
+
+        }
     }
+    
+//    if ([msg isEqualToString:@"ok"]) {
+//        VerifyViewController* verify=[[VerifyViewController alloc] init];
+//        NSString* str2=[self.areaCodeField.text stringByReplacingOccurrencesOfString:@"+" withString:@""];
+//        [verify setPhone:self.telField.text AndAreaCode:str2];
+//
+//        
+//        [SMS_SDK getVerifyCodeByPhoneNumber:self.telField.text AndZone:str2 result:^(enum SMS_GetVerifyCodeResponseState state) {
+//            if (1==state) {
+//                [self.navigationController pushViewController:verify animated:YES];
+//           
+//                
+//            }
+//            else if(0==state)
+//            {
+//                NSLog(@"block 获取验证码失败");
+//                NSString* str=[NSString stringWithFormat:NSLocalizedString(@"codesenderrormsg", nil)];
+//                UIAlertView* alert=[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"codesenderrtitle", nil) message:str delegate:self cancelButtonTitle:NSLocalizedString(@"sure", nil) otherButtonTitles:nil, nil];
+//                [alert show];
+//            }
+//            else if (SMS_ResponseStateMaxVerifyCode==state)
+//            {
+//                NSString* str=[NSString stringWithFormat:NSLocalizedString(@"maxcodemsg", nil)];
+//                UIAlertView* alert=[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"maxcode", nil) message:str delegate:self cancelButtonTitle:NSLocalizedString(@"sure", nil) otherButtonTitles:nil, nil];
+//                [alert show];
+//            }
+//            else if(SMS_ResponseStateGetVerifyCodeTooOften==state)
+//            {
+//                NSString* str=[NSString stringWithFormat:NSLocalizedString(@"codetoooftenmsg", nil)];
+//                UIAlertView* alert=[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"notice", nil) message:str delegate:self cancelButtonTitle:NSLocalizedString(@"sure", nil) otherButtonTitles:nil, nil];
+//                [alert show];
+//            }
+//        }];
+        
+        
+//    }
+//    else
+//    {
+//        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"温馨提示" message:@"您的手机号码已注册" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
+//        [alert show];
+//        [self dismissViewControllerAnimated:YES completion:nil];
+//    }
     
 }
 

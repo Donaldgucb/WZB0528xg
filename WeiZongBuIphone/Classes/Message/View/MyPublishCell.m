@@ -9,6 +9,7 @@
 #import "MyPublishCell.h"
 #import "WZBMyRequireList.h"
 #import "PlistDB.h"
+#import "ParternerRequireProgressViewController.h"
 
 @implementation MyPublishCell
 
@@ -45,6 +46,7 @@
     
     
 }
+
 
 
 

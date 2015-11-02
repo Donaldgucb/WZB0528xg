@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "XHYScrollingNavBarViewController.h"
 
-@interface PartnerListController : UIViewController
+@interface PartnerListController : XHYScrollingNavBarViewController
 
 @end

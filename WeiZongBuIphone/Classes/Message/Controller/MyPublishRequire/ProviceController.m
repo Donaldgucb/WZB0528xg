@@ -93,7 +93,7 @@
 
 -(void)requestAndGetProvice
 {
-    NSString *url = @"wzbAppService/meta/getProvinceListFromRedis.htm";
+    NSString *url = self.subField;
     NSString *accountString = [StaticMethod getAccountString];
     [[WZBAPI sharedWZBAPI] requestWithURL:url paramsString:accountString delegate:self];
 }
@@ -101,22 +101,40 @@
 
 -(void)request:(WZBRequest *)request didFinishLoadingWithResult:(id)result
 {
+    
+//    NSLog(@"%@",result);
+    
     NSArray *array = result;
-    _resultArray = [NSMutableArray array];
-    for (NSDictionary *dict in array) {
-        WZBDomain *domain = [[WZBDomain alloc] init];
-        domain.name = [dict objectForKey:@"name"];
-        domain.subField = [dict objectForKey:@"subField"];
-        domain.mainId = [dict objectForKey:@"id"];
-        [_resultArray addObject:domain];
+    if (array.count>0) {
+        _resultArray = [NSMutableArray array];
+        for (NSDictionary *dict in array) {
+            WZBDomain *domain = [[WZBDomain alloc] init];
+            domain.name = [dict objectForKey:@"name"];
+            domain.subField = [dict objectForKey:@"subField"];
+            domain.mainId = [dict objectForKey:@"id"];
+            [_resultArray addObject:domain];
+        }
+        
+        [_listTable reloadData];
+        
+    }
+    else
+    {
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"ChangeZoneNotification" object:self userInfo:@{@"name":self.domainName,@"nationId":self.nationID}];
+        NSArray *controllers = self.navigationController.viewControllers;
+        //根据索引号直接pop到指定视图
+        [self.navigationController popToViewController:[controllers objectAtIndex:1] animated:YES];
     }
     
-    [_listTable reloadData];
 }
 
 
 -(void)request:(WZBRequest *)request didFailWithError:(NSError *)error
 {
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"ChangeZoneNotification" object:self userInfo:@{@"name":self.domainName,@"nationId":self.nationID}];
+    NSArray *controllers = self.navigationController.viewControllers;
+    //根据索引号直接pop到指定视图
+    [self.navigationController popToViewController:[controllers objectAtIndex:1] animated:YES];
     
 }
 
@@ -157,6 +175,7 @@
     sub.subDomain = domain.subField;
     sub.proviceString = domain.name;
     sub.proviceId = domain.mainId;
+    sub.nationId = self.nationID;
     [self.navigationController pushViewController:sub animated:YES];
 
 }

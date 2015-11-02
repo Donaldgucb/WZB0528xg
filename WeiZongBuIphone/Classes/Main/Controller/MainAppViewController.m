@@ -33,6 +33,7 @@
 #import "TalentApplicationController.h"
 #import "WZBAPI.h"
 #import "MainSearchViewController.h"
+#import "MyPublishRequireController.h"
 
 
 
@@ -82,6 +83,10 @@
     [super viewDidLoad];
     
     
+//    远程通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(PushInfoNotification:) name:@"PushInfoNotification" object:nil];
+    
+    
     
     messageInt = 0;//登录标志位
 //    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"设置" style:UIBarButtonItemStylePlain target:nil action:nil];
@@ -99,6 +104,12 @@
     
     [self addHeadButton];
     
+}
+
+-(void)PushInfoNotification:(NSNotification*)notification{
+//    NSDictionary *Dictionary = [notification userInfo];
+    MyPublishRequireController *publish = [[MyPublishRequireController alloc] init];
+    [self.navigationController pushViewController:publish animated:YES];
 }
 
 //添加透视图button
@@ -274,6 +285,7 @@
     if (row==0) {
         if (islogin) {
             PublishNewRequireController *newRequire = [[PublishNewRequireController alloc] init];
+//            NSLog(@"self.navigationController==%@",self.navigationController);
             [self.navigationController pushViewController:newRequire animated:YES];
         }
         else

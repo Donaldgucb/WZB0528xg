@@ -490,7 +490,7 @@
            
         }
         else
-            cell.textLabel.text = @"made by donald";
+            cell.textLabel.text = @"";
     
     }
     
@@ -514,8 +514,17 @@
 
         
         _photoView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 20, 115, 130)];
-        _photoView.image = [UIImage imageNamed:@"huzhou.png"];
-        [WZBImageTool downLoadImage:_imageUrl imageView:_photoView];
+//        _photoView.image = [UIImage imageNamed:@"person_default.png"];
+//        NSLog(@"imageUrl=====%@",_imageUrl);
+        NSRange range = [_imageUrl rangeOfString:@"/img"];
+        NSInteger index = range.location+range.length;
+        NSString *imageString =[_imageUrl substringFromIndex:index];
+        if (imageString.length>0) {
+            [WZBImageTool downLoadImage:_imageUrl imageView:_photoView];
+        }
+        else
+            _photoView.image = [UIImage imageNamed:@"person_default.png"];
+//        [WZBImageTool downLoadImage:_imageUrl imageView:_photoView];
         [infoView addSubview:_photoView];
         
         UILabel *name = [[UILabel alloc] initWithFrame:CGRectMake(135, 15, 30, 20)];
@@ -596,6 +605,7 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section==1) {
+        
         PartnerCommentController *comment = [[PartnerCommentController alloc] init];
         [self.navigationController pushViewController:comment animated:YES];
     }

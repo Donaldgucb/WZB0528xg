@@ -30,5 +30,7 @@
 -(void)CannotGetSMS;
 
 @property(nonatomic,assign) NSString* isVerify;
+@property(nonatomic,copy) NSString *checkCode;
+@property(nonatomic,copy)NSString *phoneNumber;
 
 @end

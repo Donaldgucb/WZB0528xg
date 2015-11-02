@@ -114,8 +114,10 @@
 {
   
     [[NSNotificationCenter defaultCenter] postNotificationName:@"ChangeCredentialNotification" object:self userInfo:@{@"name":_resultArray[indexPath.row],@"CredentialID":_CredentialArray[indexPath.row]}];
-    [self.navigationController popToRootViewControllerAnimated:YES];
-    
+    //定义一个数组来接收所有导航控制器里的视图控制器
+    NSArray *controllers = self.navigationController.viewControllers;
+    //根据索引号直接pop到指定视图
+    [self.navigationController popToViewController:[controllers objectAtIndex:1] animated:YES];
 }
 
 

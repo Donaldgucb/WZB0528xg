@@ -136,14 +136,12 @@
     NSMutableArray *temp = [NSMutableArray array];
     for (NSDictionary *dict in array) {
         WZBIndustry *industry = [[WZBIndustry alloc] init];
-//        [industry setValues:dict];
         industry.name = [dict objectForKey:@"name"];
         industry.webURL = [dict objectForKey:@"webURL"];
         [temp addObject:industry];
     }
     _industryArr = temp;
     [_listTable reloadData];
-    
 }
 
 -(void)request:(WZBRequest *)request didFailWithError:(NSError *)error

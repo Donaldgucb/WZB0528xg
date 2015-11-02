@@ -14,5 +14,6 @@
 @property(nonatomic,copy)NSString *subDomain;
 @property(nonatomic,copy)NSString *proviceString;
 @property(nonatomic,copy)NSString *proviceId;
+@property(nonatomic,copy)NSString *nationId;
 
 @end

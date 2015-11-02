@@ -37,8 +37,13 @@
     
     BOOL isBaseDomain;
     BOOL isDomainRequest;
+    BOOL isNation;
+    BOOL isNationRequest;
+
     int firstSelect;
     NSString *domainUrl;
+    NSString *nationUrl;
+    NSString *nationID;
     NSMutableArray *lastDataArray;
 }
 
@@ -51,6 +56,9 @@
 @property(nonatomic,strong) NSArray *currentAreaArr;
 @property(nonatomic,strong)UIButton *activityBtn;
 @property(nonatomic,strong)NSArray *domainIDArray;
+@property(nonatomic,strong)UIButton *countryBtn;
+@property(nonatomic,strong)NSMutableArray *countryArray;
+@property(nonatomic,strong)NSMutableArray *nationIDArray;
 
 @end
 
@@ -77,6 +85,9 @@
     //初始化数据
     _partnerListDataArray = [NSMutableArray array];
     lastDataArray = [NSMutableArray array];
+    
+    self.countryArray = [NSMutableArray arrayWithObjects:@"全世界",@"中国",@"美国",@"加拿大",@"德国",@"英国",@"瑞典",@"西班牙",@"澳大利亚", nil];
+    self.nationIDArray = [NSMutableArray arrayWithObjects:@"0",@"1",@"10000",@"10002",@"10007",@"10015",@"10010",@"10021",@"10003", nil];
     
     //加载列表视图
     [self loadCollectionView];
@@ -114,7 +125,7 @@
     [titleLabel setTextAlignment:NSTextAlignmentCenter];
     [titleLabel setFont:[UIFont boldSystemFontOfSize:16]];
     [titleLabel setBackgroundColor:[UIColor clearColor]];
-    [navView addSubview:titleLabel];
+//    [navView addSubview:titleLabel];
     
     
     //返回按钮
@@ -123,9 +134,27 @@
     [back addTarget:self action:@selector(clickBack) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:back];
     
-    
 
     
+//国家分类
+    _countryBtn = [[UIButton alloc] initWithFrame:CGRectMake(170, 25, 62, 30)];
+    _countryBtn.titleLabel.font = [UIFont systemFontOfSize:14.f];
+    [_countryBtn setTitle:@"国家" forState:UIControlStateNormal];
+    _countryBtn.titleLabel.textAlignment = NSTextAlignmentRight;
+    [_countryBtn setImage:[UIImage imageNamed:@"expandableImage"] forState:UIControlStateNormal];
+    _countryBtn.imageEdgeInsets = UIEdgeInsetsMake(11, 52, 11, 0);
+    [_countryBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [_countryBtn addTarget:self action:@selector(btnPressed1:) forControlEvents:UIControlEventTouchUpInside];
+    //    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:_activityBtn];
+    _countryBtn.tag=102;
+    [self.view addSubview:_countryBtn];
+    
+    
+    
+    
+    
+
+//领域分类
     _activityBtn = [[UIButton alloc] initWithFrame:CGRectMake(240, 25, 62, 30)];
     _activityBtn.titleLabel.font = [UIFont systemFontOfSize:14.f];
     [_activityBtn setTitle:@"分类" forState:UIControlStateNormal];
@@ -134,10 +163,18 @@
     _activityBtn.imageEdgeInsets = UIEdgeInsetsMake(11, 52, 11, 0);
     [_activityBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [_activityBtn addTarget:self action:@selector(btnPressed:) forControlEvents:UIControlEventTouchUpInside];
+    _activityBtn.tag=101;
 //    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:_activityBtn];
     
     [self.view addSubview:_activityBtn];
     
+    FSDropDownMenu *menu1 = [[FSDropDownMenu alloc] initWithOrigin:CGPointMake(0, 64) andHeight:300];
+    menu1.transformView = _countryBtn.imageView;
+    menu1.tag = 10001;
+    menu1.dataSource = self;
+    menu1.delegate = self;
+    menu1.leftTableView.hidden=YES;
+    [self.view addSubview:menu1];
    
     FSDropDownMenu *menu = [[FSDropDownMenu alloc] initWithOrigin:CGPointMake(0, 64) andHeight:300];
     menu.transformView = _activityBtn.imageView;
@@ -146,6 +183,8 @@
     menu.delegate = self;
     menu.leftTableView.hidden=YES;
     [self.view addSubview:menu];
+    
+    
     
     
     UIButton *searchButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -165,18 +204,26 @@
     
     partnerInt=0;
     
-   
-
-
+    
+    
+    
 }
 
 #pragma mark 获取一级分类
 -(void)getBaseDomain
 {
     isBaseDomain=YES;
-    WZBAPI *api = [[WZBAPI alloc] init];
     NSString *url = @"wzbAppService/meta/getFirstDomain.htm?username=admin&password=111111&token=";
-    [api requestWithURL:url delegate:self];
+    [[WZBAPI sharedWZBAPI] requestWithURL:url delegate:self];
+    
+}
+
+#pragma mark 获取一级分类
+-(void)getNation
+{
+    isNation=YES;
+    NSString *url = @"wzbAppService/partner/getPartnerForNation.htm?username=admin&password=111111&token=&page=0&offset=10&nationId=10000";
+    [[WZBAPI sharedWZBAPI] requestWithURL:url delegate:self];
     
 }
 
@@ -192,18 +239,43 @@
     }];
 }
 
+#pragma mark 筛选按钮
+-(void)btnPressed1:(id)sender{
+    firstSelect=0;
+    FSDropDownMenu *menu = (FSDropDownMenu*)[self.view viewWithTag:10001];
+    [UIView animateWithDuration:0.2 animations:^{
+        
+    } completion:^(BOOL finished) {
+        [menu menuTapped];
+    }];
+}
+
+
+
 #pragma mark - reset button size
 
--(void)resetItemSizeBy:(NSString*)str{
-    UIButton *btn = _activityBtn;
+-(void)resetItemSizeBy:(NSString*)str :(UIButton *)button{
+    UIButton *btn = button;
     [btn setTitle:str forState:UIControlStateNormal];
     NSDictionary *dict = @{NSFontAttributeName:btn.titleLabel.font};
     CGSize size = [str boundingRectWithSize:CGSizeMake(150, 30) options:NSStringDrawingUsesLineFragmentOrigin attributes:dict context:nil].size;
-    if (size.width>50) {
-        btn.frame = CGRectMake(220, btn.frame.origin.y,size.width+33, 30);
+    if (button.tag==101) {
+        if (size.width>50) {
+            btn.frame = CGRectMake(220, btn.frame.origin.y,size.width+33, 30);
+        }
+        else
+            btn.frame = CGRectMake(240, btn.frame.origin.y,size.width+33, 30);
+        
     }
-    else
-        btn.frame = CGRectMake(240, btn.frame.origin.y,size.width+33, 30);
+    else{
+        if (size.width>50) {
+            btn.frame = CGRectMake(160, btn.frame.origin.y,size.width+33, 30);
+        }
+        else
+            btn.frame = CGRectMake(160, btn.frame.origin.y,size.width+33, 30);
+    
+    }
+    
     btn.imageEdgeInsets = UIEdgeInsetsMake(11, size.width+23, 11, 0);
 }
 
@@ -211,48 +283,92 @@
 #pragma mark - FSDropDown datasource & delegate
 
 - (NSInteger)menu:(FSDropDownMenu *)menu tableView:(UITableView*)tableView numberOfRowsInSection:(NSInteger)section{
-    if (tableView == menu.rightTableView) {
-        return _cityArr.count;
-    }else{
-        return _currentAreaArr.count;
+//    NSLog(@"%d",menu.tag);
+    if(menu.tag==1001)
+    {
+        if (tableView == menu.rightTableView) {
+            return _cityArr.count;
+        }else{
+            return _currentAreaArr.count;
+        }
+    }
+    else
+    {
+        return 9;
     }
 }
 - (NSString *)menu:(FSDropDownMenu *)menu tableView:(UITableView*)tableView titleForRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (tableView == menu.rightTableView) {
-        
-        return _cityArr[indexPath.row];
-    }else{
-        return _currentAreaArr[indexPath.row];
+    if (menu.tag==1001) {
+        if (tableView == menu.rightTableView) {
+            
+            return _cityArr[indexPath.row];
+        }else{
+            return _currentAreaArr[indexPath.row];
+        }
     }
+    else
+    {
+        return self.countryArray[indexPath.row];
+    }
+    
 }
 
 
 - (void)menu:(FSDropDownMenu *)menu tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    if(tableView == menu.rightTableView){
-        NSInteger row = indexPath.row;
-        if (firstSelect>0) {
-            [menu finishSelect];
-            [self resetItemSizeBy:_cityArr[row]];
-            if (row==0) {
-                [self requestAndGetPartnerData];
-            }
-            else{
+    NSInteger row = indexPath.row;
+    if (menu.tag==1001) {
+        if(tableView == menu.rightTableView){
+            if (firstSelect>0) {
+                [menu finishSelect];
+                [self resetItemSizeBy:_cityArr[row] :_activityBtn];
+                if (row==0) {
+                    [self requestAndGetPartnerData];
+                }
+                else{
+                    
+                    NSString *domainID=_domainIDArray[row];
+                    NSString *url = @"wzbAppService/partner/getPartnerListByDomainId/";
+                    url = [url stringByAppendingString:domainID];
+                    url = [url stringByAppendingString:@".htm"];
+                    domainUrl = url;
+                    [self requestAndGetDomainData];
+                }
                 
-                NSString *domainID=_domainIDArray[row];
-                NSString *url = @"wzbAppService/partner/getPartnerListByDomainId/";
-                url = [url stringByAppendingString:domainID];
-                url = [url stringByAppendingString:@".htm"];
-                domainUrl = url;
-                [self requestAndGetDomainData];
             }
+            firstSelect++;
+        }
+        
+    }
+    else
+    {
+        if(tableView == menu.rightTableView){
+            if (firstSelect>0) {
+                [menu finishSelect];
+                [self resetItemSizeBy:self.countryArray[row]:_countryBtn];
+                if (row==0) {
+                    [self requestAndGetPartnerData];
+                }
+                else{
+                    
+                    isNationRequest=YES;
+                    nationID=self.nationIDArray[row];
+                    nationUrl = @"wzbAppService/partner/getPartnerForNation.htm";
+                    [self requestAndGetNationData];
+                    
+                    
+                    
+                    
+                }
+                
+            }
+            firstSelect++;
             
         }
-        firstSelect++;
+    
     }
     
 }
-
 
 
 
@@ -285,6 +401,7 @@
 -(void)requestAndGetPartnerData
 {
     isDomainRequest=NO;
+    isNationRequest=NO;
     partnerInt=0;
     _partnerListDataArray = [NSMutableArray array];
     NSString *accountString = [StaticMethod getAccountString];
@@ -299,6 +416,7 @@
 -(void)loadPartnerListMoreData
 {
     isDomainRequest=NO;
+    isNationRequest=NO;
     NSString *accountString = [StaticMethod getAccountString];
     NSString *pageSet = [NSString stringWithFormat:@"&page=%ld&offset=10",_pageInt];
     NSString *paramString = [NSString stringWithFormat:@"%@%@",accountString,pageSet];
@@ -312,6 +430,7 @@
 -(void)requestAndGetDomainDataMore
 {
     isDomainRequest=YES;
+    isNationRequest=NO;
     NSString *paramString;
     NSString *accountString = [StaticMethod getAccountString];
     NSString *pageSet = [NSString stringWithFormat:@"&page=%ld&offset=10",_pageInt];
@@ -326,6 +445,7 @@
 -(void)requestAndGetDomainData
 {
     isDomainRequest=YES;
+    isNationRequest=NO;
     partnerInt=0;
     _partnerListDataArray = [NSMutableArray array];
     NSString *paramString;
@@ -337,10 +457,42 @@
 }
 
 
+-(void)requestAndGetNationData
+{
+    isDomainRequest=NO;
+    isNationRequest=YES;
+    partnerInt=0;
+    _partnerListDataArray = [NSMutableArray array];
+    NSString *paramString;
+    NSString *accountString = [StaticMethod getAccountString];
+    paramString = [NSString stringWithFormat:@"%@&page=0&offset=10&nationId=%@",accountString,nationID];
+    [[WZBAPI sharedWZBAPI] requestWithURL:nationUrl paramsString:paramString delegate:self];
+    statusInt =0;
+    [self performSelector:@selector(showStatus) withObject:nil afterDelay:1.0f];
+
+}
+
+-(void)requestAndGetNationDataMore
+{
+    isDomainRequest=NO;
+    isNationRequest=YES;
+    partnerInt=0;
+    _partnerListDataArray = [NSMutableArray array];
+    NSString *paramString;
+    NSString *accountString = [StaticMethod getAccountString];
+    NSString *pageSet = [NSString stringWithFormat:@"&page=%ld&offset=10",_pageInt];
+    paramString = [NSString stringWithFormat:@"%@%@&nationID=%@",accountString,pageSet,nationID];
+    [[WZBAPI sharedWZBAPI] requestWithURL:nationUrl paramsString:paramString delegate:self];
+    statusInt =0;
+    [self performSelector:@selector(showStatus) withObject:nil afterDelay:1.0f];
+    
+}
+
+
 #pragma mark 数据请求回调方法
 -(void)request:(WZBRequest *)request didFinishLoadingWithResult:(id)result
 {
-   if (isBaseDomain) {
+    if (isBaseDomain) {
         isBaseDomain=NO;
         NSMutableArray *nameArray = [NSMutableArray array];
         NSMutableArray *domainID = [NSMutableArray array];
@@ -438,6 +590,9 @@
     
     [self.view addSubview:collect];
     _collectView = collect;
+    
+    [self followRollingScrollView:_collectView];
+    
     
      [self addReflesh];
 }
@@ -543,6 +698,8 @@
         if (isDomainRequest) {
             [self requestAndGetDomainData];
         }
+        else if(isNationRequest)
+            [self requestAndGetNationData];
         else
             [self requestAndGetPartnerData];
         
@@ -567,6 +724,8 @@
             if (isDomainRequest) {
                 [self requestAndGetDomainDataMore];
             }
+            else if(isNationRequest)
+                [self requestAndGetNationDataMore];
             else
                 [self loadPartnerListMoreData];
             

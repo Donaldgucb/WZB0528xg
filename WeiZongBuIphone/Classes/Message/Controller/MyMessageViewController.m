@@ -30,7 +30,7 @@
 #import "StaticMethod.h"
 #import "WZBImageTool.h"
 #import "ContactUsController.h"
-
+#import "RecommendedToMeListController.h"
 #define ORIGINAL_MAX_WIDTH 640.0f
 
 
@@ -225,7 +225,7 @@
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     if (section==1) {
-        return 4;
+        return 5;
     }
     else
         return 1;
@@ -325,7 +325,7 @@
          if (indexPath.row==0)
         {
             cellImageView.image = [UIImage imageNamed:@"icon_myRequire.png"];
-            cellTitleLabel.text =@"已发布的需求";
+            cellTitleLabel.text =@"我已发布的需求";
             
         }
          else if (indexPath.row==1)
@@ -344,6 +344,12 @@
         {
             cellImageView.image = [UIImage imageNamed:@"icon_Talentedperson.png"];
             cellTitleLabel.text =@"联系我们";
+            
+        }
+        else if (indexPath.row==4)
+        {
+            cellImageView.image = [UIImage imageNamed:@"icon_myRequire.png"];
+            cellTitleLabel.text =@"推荐给我的需求";
             
         }
     
@@ -429,6 +435,11 @@
                 ContactUsController *contact = [[ContactUsController alloc] init];
                 [self.navigationController pushViewController:contact animated:YES];
                 
+            }
+            else if(row==4)
+            {
+                RecommendedToMeListController *toMe = [[RecommendedToMeListController alloc] init];
+                [self.navigationController pushViewController:toMe animated:YES];
             }
 
         }

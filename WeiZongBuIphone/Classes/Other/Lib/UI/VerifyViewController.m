@@ -13,9 +13,10 @@
 #import "SMS_SDK/SMS_AddressBook.h"
 #import <AddressBook/AddressBook.h>
 #import "RegistrationViewController.h"
+#import "WZBAPI.h"
 
 
-@interface VerifyViewController ()
+@interface VerifyViewController ()<WZBRequestDelegate>
 {
     NSString* _phone;
     NSString* _areaCode;
@@ -92,28 +93,44 @@ static NSMutableArray* _userData2;
     //
     [self.view endEditing:YES];
     
-    if(self.verifyCodeField.text.length!=4)
+    if(self.verifyCodeField.text.length!=6)
     {
         UIAlertView* alert=[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"notice", nil) message:NSLocalizedString(@"verifycodeformaterror", nil) delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
         [alert show];
     }
     else
     {
+        
+        
+        if ([_checkCode isEqualToString:self.verifyCodeField.text]) {
+            RegistrationViewController *regist = [[RegistrationViewController alloc] init];
+            regist.telPhone = _phone;
+            [self.navigationController pushViewController:regist animated:YES];
+        }
+        else
+        {
+            NSString* str=[NSString stringWithFormat:NSLocalizedString(@"verifycodeerrormsg", nil)];
+            UIAlertView* alert=[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"verifycodeerrortitle", nil) message:str delegate:self cancelButtonTitle:NSLocalizedString(@"sure", nil)  otherButtonTitles:nil, nil];
+            [alert show];
+        }
+        
+        
+        
         //[[SMS_SDK sharedInstance] commitVerifyCode:self.verifyCodeField.text];
-        [SMS_SDK commitVerifyCode:self.verifyCodeField.text result:^(enum SMS_ResponseState state) {
-            if (1==state) {
-                RegistrationViewController *regist = [[RegistrationViewController alloc] init];
-                regist.telPhone = _phone;
-                [self.navigationController pushViewController:regist animated:YES];
-
-            }
-            else if(0==state)
-            {
-                NSString* str=[NSString stringWithFormat:NSLocalizedString(@"verifycodeerrormsg", nil)];
-                UIAlertView* alert=[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"verifycodeerrortitle", nil) message:str delegate:self cancelButtonTitle:NSLocalizedString(@"sure", nil)  otherButtonTitles:nil, nil];
-                [alert show];
-            }
-        }];
+//        [SMS_SDK commitVerifyCode:self.verifyCodeField.text result:^(enum SMS_ResponseState state) {
+//            if (1==state) {
+//                RegistrationViewController *regist = [[RegistrationViewController alloc] init];
+//                regist.telPhone = _phone;
+//                [self.navigationController pushViewController:regist animated:YES];
+//
+//            }
+//            else if(0==state)
+//            {
+//                NSString* str=[NSString stringWithFormat:NSLocalizedString(@"verifycodeerrormsg", nil)];
+//                UIAlertView* alert=[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"verifycodeerrortitle", nil) message:str delegate:self cancelButtonTitle:NSLocalizedString(@"sure", nil)  otherButtonTitles:nil, nil];
+//                [alert show];
+//            }
+//        }];
     }
 }
 
@@ -130,36 +147,46 @@ static NSMutableArray* _userData2;
     if (alertView==_alert1) {
         if (1==buttonIndex)
         {
-            NSLog(@"重发验证码");
-            //[[SMS_SDK sharedInstance] getVerifyCodeByPhoneNumber:_phone AndZone:_areaCode];
-            [SMS_SDK getVerifyCodeByPhoneNumber:_phone AndZone:_areaCode result:^(enum SMS_GetVerifyCodeResponseState state) {
-                if (1==state) {
-                    NSLog(@"block 获取验证码成功");
-
-                }
-                else if(0==state)
-                {
-                    NSLog(@"block 获取验证码失败");
-                    NSString* str=[NSString stringWithFormat:NSLocalizedString(@"codesenderrormsg", nil)];
-                    UIAlertView* alert=[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"codesenderrtitle", nil) message:str delegate:self cancelButtonTitle:NSLocalizedString(@"sure", nil) otherButtonTitles:nil, nil];
-                    [alert show];
-                }
-                else if (SMS_ResponseStateMaxVerifyCode==state)
-                {
-                    NSString* str=[NSString stringWithFormat:NSLocalizedString(@"maxcodemsg", nil)];
-                    UIAlertView* alert=[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"maxcode", nil) message:str delegate:self cancelButtonTitle:NSLocalizedString(@"sure", nil) otherButtonTitles:nil, nil];
-                    [alert show];
-                }
-                else if(SMS_ResponseStateGetVerifyCodeTooOften==state)
-                {
-                    NSString* str=[NSString stringWithFormat:NSLocalizedString(@"codetoooftenmsg", nil)];
-                    UIAlertView* alert=[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"notice", nil) message:str delegate:self cancelButtonTitle:NSLocalizedString(@"sure", nil) otherButtonTitles:nil, nil];
-                    [alert show];
-                }
-
-            }];
-
+            NSString *paramString = [NSString stringWithFormat:@"mobile=%@",_phoneNumber];
+            
+            [[WZBAPI sharedWZBAPI] requestWithURL:sendRegisterMessage paramsString:paramString delegate:self];
+            
+            
+            
+            [self showTimeLabel];
+            
         }
+//        {
+//            NSLog(@"重发验证码");
+//            //[[SMS_SDK sharedInstance] getVerifyCodeByPhoneNumber:_phone AndZone:_areaCode];
+//            [SMS_SDK getVerifyCodeByPhoneNumber:_phone AndZone:_areaCode result:^(enum SMS_GetVerifyCodeResponseState state) {
+//                if (1==state) {
+//                    NSLog(@"block 获取验证码成功");
+//
+//                }
+//                else if(0==state)
+//                {
+//                    NSLog(@"block 获取验证码失败");
+//                    NSString* str=[NSString stringWithFormat:NSLocalizedString(@"codesenderrormsg", nil)];
+//                    UIAlertView* alert=[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"codesenderrtitle", nil) message:str delegate:self cancelButtonTitle:NSLocalizedString(@"sure", nil) otherButtonTitles:nil, nil];
+//                    [alert show];
+//                }
+//                else if (SMS_ResponseStateMaxVerifyCode==state)
+//                {
+//                    NSString* str=[NSString stringWithFormat:NSLocalizedString(@"maxcodemsg", nil)];
+//                    UIAlertView* alert=[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"maxcode", nil) message:str delegate:self cancelButtonTitle:NSLocalizedString(@"sure", nil) otherButtonTitles:nil, nil];
+//                    [alert show];
+//                }
+//                else if(SMS_ResponseStateGetVerifyCodeTooOften==state)
+//                {
+//                    NSString* str=[NSString stringWithFormat:NSLocalizedString(@"codetoooftenmsg", nil)];
+//                    UIAlertView* alert=[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"notice", nil) message:str delegate:self cancelButtonTitle:NSLocalizedString(@"sure", nil) otherButtonTitles:nil, nil];
+//                    [alert show];
+//                }
+//
+//            }];
+//
+//        }
         
     }
     
@@ -192,6 +219,26 @@ static NSMutableArray* _userData2;
 //    }
 
 }
+
+
+-(void)request:(WZBRequest *)request didFinishLoadingWithResult:(id)result
+{
+    NSDictionary *dict = result;
+    NSLog(@"%@",dict);
+    NSString *msg = [dict objectForKey:@"ret"];
+    if (![msg isEqualToString:@"error"]) {
+        _checkCode=msg;
+    }
+    else{
+        NSLog(@"重新发送失败");
+    }
+}
+
+-(void)request:(WZBRequest *)request didFailWithError:(NSError *)error
+{
+
+}
+
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
@@ -325,6 +372,31 @@ static NSMutableArray* _userData2;
     [_timer1 invalidate];
     return;
 }
+
+-(void)showTimeLabel
+{
+    count=0;
+    self.timeLabel.hidden=NO;
+    self.repeatSMSBtn.hidden=YES;
+    
+    NSTimer* timer=[NSTimer scheduledTimerWithTimeInterval:60
+                                                    target:self
+                                                  selector:@selector(showRepeatButton)
+                                                  userInfo:nil
+                                                   repeats:YES];
+    
+    NSTimer* timer2=[NSTimer scheduledTimerWithTimeInterval:1
+                                                     target:self
+                                                   selector:@selector(updateTime)
+                                                   userInfo:nil
+                                                    repeats:YES];
+   
+    _timer1=timer;
+    _timer2=timer2;
+    
+     [SMS_MBProgressHUD showMessag:NSLocalizedString(@"sendingin", nil) toView:self.view];
+}
+
 
 - (void)didReceiveMemoryWarning
 {

@@ -192,13 +192,13 @@
         datePicker.datePickerMode = UIDatePickerModeDate;
         [datePicker addTarget:self action:@selector(datePickerValueChanged:) forControlEvents:UIControlEventValueChanged];
         
-        if (![textField.text isEqualToString:@""]){
-            NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-            [dateFormatter setDateFormat:@"YYYY-MM-dd"];
-            [dateFormatter setTimeZone:[NSTimeZone localTimeZone]];
-            [dateFormatter setDateStyle:NSDateFormatterShortStyle];
-            [datePicker setDate:[dateFormatter dateFromString:textField.text]];
-        }
+//        if (![textField.text isEqualToString:@""]){
+//            NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+//            [dateFormatter setDateFormat:@"YYYY-MM-dd"];
+//            [dateFormatter setTimeZone:[NSTimeZone localTimeZone]];
+//            [dateFormatter setDateStyle:NSDateFormatterShortStyle];
+//            [datePicker setDate:[dateFormatter dateFromString:textField.text]];
+//        }
         [textField setInputView:datePicker];
     }
 }

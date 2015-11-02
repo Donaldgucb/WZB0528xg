@@ -13,6 +13,7 @@
 #import "PlistDB.h"
 #import "StaticTool.h"
 #import "SVProgressHUD.h"
+#import "XGPush.h"
 
 @interface RegistrationViewController ()<WZBRequestDelegate,UIAlertViewDelegate>
 {
@@ -81,8 +82,8 @@
     UIImageView *img6=[[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 302, 132)];
     [img6 setImage:[UIImage imageNamed:@"register_bk.png"]];
     [v1 addSubview:img6];
-    
-    
+//    测试程序
+//    _telPhone=@"18912341236";
     
     userNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(78, 8, 208, 30)];
     userNameLabel.text = _telPhone;
@@ -273,6 +274,7 @@
 
 -(void)request:(WZBRequest *)request didFinishLoadingWithResult:(id)result
 {
+    NSLog(@"%@",result);
     statusInt=1;
     [SVProgressHUD dismiss];
     NSDictionary *dict = result;
@@ -302,8 +304,10 @@
         
         [self.navigationController popToRootViewControllerAnimated:YES];
         
+        [self dismissViewControllerAnimated:YES completion:nil];
+        
          [[NSNotificationCenter defaultCenter] postNotificationName:@"LoginNotification" object:self userInfo:@{@"name":@"1"}];
-
+        [XGPush setAccount:userNameLabel.text];
     }
    }
 

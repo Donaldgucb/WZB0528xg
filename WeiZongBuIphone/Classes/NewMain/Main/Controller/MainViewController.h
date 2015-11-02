@@ -11,4 +11,6 @@
 
 @interface MainViewController : DockController
 
+- (void)addAllChildControllers;
+
 @end

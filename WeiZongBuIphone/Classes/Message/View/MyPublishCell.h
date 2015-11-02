@@ -17,6 +17,9 @@
 @property (weak, nonatomic) IBOutlet UIButton *visitButton;
 @property(nonatomic,strong)WZBMyRequireList *partnerRequire;
 @property (weak, nonatomic) IBOutlet UIButton *countButton;
+@property (weak, nonatomic) IBOutlet UIButton *requireInfo;
+
+
 
 
 

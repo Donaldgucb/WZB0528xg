@@ -10,8 +10,8 @@
 #define WeiZongBuIphone_Common_h
 
 //121.40.85.6
-//192.168.10.110
-//192.168.10.88:8081/
+//192.168.1.110
+//192.168.1.88:8081/
 //192.168.10.86:8080
 // 1.判断是否为iPhone5的宏
 #define iPhone5 ([UIScreen mainScreen].bounds.size.height == 568)
@@ -30,7 +30,7 @@
 #define MyLog(...)
 #endif
 
-#define kIP @"http://121.40.85.6/"
+#define kIP @"http://192.168.1.110/"
 
 //展会信息
 #define kExhibitionUrl @"wzbAppService/showActivity/getShowClassList.htm?"
@@ -58,6 +58,9 @@
 
 //注册
 #define RegistUrl @"wzbAppService/userRegist.htm"
+
+//注册2
+#define XGRegistUrl @"wzbAppService/userRegist2.htm"
 
 //系统消息
 #define SystermMessageUrl @"wzbAppService/information/getSystemNewsList.htm?page=0&offset=100&"
@@ -125,5 +128,19 @@
 
 //我发布的需求列表
 #define MyPublishRequire @"wzbAppService/require/getMyAccountRequireList.htm"
+
+#define sendRegisterMessage @"wzbCRM/system/sendRegisterCode.htm"
+
+//我发布的需求的需求进度
+#define MyPublishRequireProgress @"wzbAppService/require/getMyRequireFollowUpDetails.htm"
+
+//客户补充跟踪需求内容
+#define CustomAddRequireContent @"wzbAppService/require/addRequireFollowUpDetails.htm"
+
+//客户关闭需求跟踪
+#define CustomCloseRequireFollow @"wzbAppService/require/closeMyRequireFollowUpDetails.htm"
+
+//人才推荐需求列表
+#define RecommendToMeRequire @"wzbAppService/require/getMyAccountRequireRecommendList.htm"
 
 #endif

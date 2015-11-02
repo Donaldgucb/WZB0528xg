@@ -10,4 +10,8 @@
 
 @interface ProviceController : UIViewController
 
+@property(nonatomic,copy)NSString *subField;
+@property(nonatomic,copy)NSString *domainName;
+@property(nonatomic,copy)NSString *nationID;
+
 @end

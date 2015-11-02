@@ -20,10 +20,13 @@
     _subtitile.text = partnerRequire.subTitle;
     _cityLabel.text = partnerRequire.city;
     _detailLabel.text = partnerRequire.requireInfo;
+    if (partnerRequire.viewCount==nil) {
+        partnerRequire.viewCount=@"0";
+    }
     [_visitButton setTitle:[NSString stringWithFormat:@"%@人访问",partnerRequire.viewCount] forState:UIControlStateNormal];
     _visitButton.userInteractionEnabled=NO;
     
-
+    
     
 }
 

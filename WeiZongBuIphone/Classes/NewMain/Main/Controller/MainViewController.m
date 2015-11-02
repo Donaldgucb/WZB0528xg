@@ -24,6 +24,7 @@
 #import "MyCollectionController.h"
 #import "QuestionController.h"
 #import "MLNavigationController.h"
+#import "MyPublishRequireController.h"
 
 
 
@@ -44,6 +45,7 @@
     // 2.初始化DockItems
     [self addDockItems];
 
+ 
 }
 
 
@@ -159,6 +161,7 @@
     [_dock addItemWithIcon:@"tabbar_me.png" selectedIcon:@"tabbar_me_selected.png"  title:@"帐户"];
 
 }
+
 
 
 @end

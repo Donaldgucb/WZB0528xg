@@ -14,6 +14,8 @@
 #import "MyPublishCell.h"
 #import "PartnerRequireDetailController.h"
 #import "MJRefresh.h"
+#import "ParternerRequireProgressViewController.h"
+
 
 
 
@@ -198,7 +200,7 @@
 
 -(void)request:(WZBRequest *)request didFailWithError:(NSError *)error
 {
-    
+    NSLog(@"error");
 }
 
 
@@ -269,7 +271,7 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 108;
+    return 140;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -301,6 +303,10 @@
     
     [cell.visitButton setTitle:[NSString stringWithFormat:@"%@",statusString] forState:UIControlStateNormal];
     cell.visitButton.userInteractionEnabled=NO;
+    [cell.requireInfo addTarget:self action:@selector(clickRequireInfo:) forControlEvents:UIControlEventTouchUpInside];
+    cell.requireInfo.tag = row;
+    
+
     return cell;
     
 }
@@ -319,6 +325,16 @@
 
 }
 
+
+
+-(void)clickRequireInfo:(UIButton*)button
+{
+    ParternerRequireProgressViewController *progress = [[ParternerRequireProgressViewController alloc] init];
+    WZBMyRequireList *partnerRequire = _requireListArray[button.tag];
+    progress.requireId = partnerRequire.requierID;
+    progress.requireTitle = partnerRequire.title;
+    [self.navigationController  pushViewController:progress animated:YES];
+}
 
 
 @end

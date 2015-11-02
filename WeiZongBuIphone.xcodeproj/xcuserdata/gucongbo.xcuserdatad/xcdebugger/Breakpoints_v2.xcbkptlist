@@ -226,11 +226,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "WeiZongBuIphone/Classes/Partner/Controller/Require/PartnerRequireDetailController.m"
-            timestampString = "454487144.080052"
+            timestampString = "454929838.967485"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "986"
-            endingLineNumber = "986">
+            startingLineNumber = "988"
+            endingLineNumber = "988">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -272,12 +272,12 @@
                   moduleName = "WeiZongBuIphone"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/gucongbo/Desktop/%E5%BE%AE%E6%80%BB%E9%83%A8%E9%A1%B9%E7%9B%AE%E5%BC%80%E5%8F%91/WZB0528xg/WeiZongBuIphone/Classes/Partner/Controller/Require/PartnerRequireSearchListViewController.m"
-                  timestampString = "454490520.195016"
+                  timestampString = "463306538.75827"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "121"
                   endingLineNumber = "121"
-                  offsetFromSymbolStart = "144">
+                  offsetFromSymbolStart = "122">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -287,62 +287,14 @@
                   moduleName = "WeiZongBuIphone"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/gucongbo/Desktop/%E5%BE%AE%E6%80%BB%E9%83%A8%E9%A1%B9%E7%9B%AE%E5%BC%80%E5%8F%91/WZB0528xg/WeiZongBuIphone/Classes/Partner/Controller/Require/PartnerRequireSearchListViewController.m"
-                  timestampString = "454490520.195189"
+                  timestampString = "463306538.758774"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "121"
                   endingLineNumber = "121"
-                  offsetFromSymbolStart = "24">
+                  offsetFromSymbolStart = "12">
                </Location>
             </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "WeiZongBuIphone/Classes/Message/Controller/TalentInfoViewController.m"
-            timestampString = "453804686.881021"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "550"
-            endingLineNumber = "550"
-            landmarkName = "-request:didFinishLoadingWithResult:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "WeiZongBuIphone/Classes/Message/Controller/TalentInfoViewController.m"
-            timestampString = "453804686.881021"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "534"
-            endingLineNumber = "534"
-            landmarkName = "-request:didFinishLoadingWithResult:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "WeiZongBuIphone/Classes/Message/Controller/TalentInfoViewController.m"
-            timestampString = "453804686.881021"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "461"
-            endingLineNumber = "461"
-            landmarkName = "-request:didFinishLoadingWithResult:"
-            landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -415,76 +367,12 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "WeiZongBuIphone/Classes/Main/Controller/IndustryListViewController.m"
-            timestampString = "452747531.782279"
+            filePath = "WeiZongBuIphone/Classes/Partner/Controller/Require/PartnerRequireDetailController.m"
+            timestampString = "454929833.432528"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "149"
-            endingLineNumber = "149"
-            landmarkName = "-request:didFailWithError:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "WeiZongBuIphone/Classes/Other/AppDelegate.m"
-            timestampString = "453268251.717599"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "276"
-            endingLineNumber = "276"
-            landmarkName = "-application:didReceiveRemoteNotification:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "WeiZongBuIphone/Classes/Message/Controller/MyPublishRequire/PublishNewRequireController.m"
-            timestampString = "453718200.785923"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "689"
-            endingLineNumber = "689"
-            landmarkName = "-clickPublishBtn"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "WeiZongBuIphone/Classes/Partner/Controller/PartnerDetailController.m"
-            timestampString = "454487806.806533"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "277"
-            endingLineNumber = "277"
-            landmarkName = "-request:didFinishLoadingWithResult:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "WeiZongBuIphone/Classes/Other/Lib/UI/RegViewController.m"
-            timestampString = "454412165.116905"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "137"
-            endingLineNumber = "137"
+            startingLineNumber = "285"
+            endingLineNumber = "285"
             landmarkName = "-alertView:clickedButtonAtIndex:"
             landmarkType = "5">
          </BreakpointContent>
@@ -495,13 +383,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "WeiZongBuIphone/Classes/Other/Lib/UI/RegViewController.m"
-            timestampString = "454412343.614212"
+            filePath = "WeiZongBuIphone/Classes/Company/Controller/CompanyDetailViewController.m"
+            timestampString = "456806547.409199"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "154"
-            endingLineNumber = "154"
-            landmarkName = "-request:didFinishLoadingWithResult:"
+            startingLineNumber = "334"
+            endingLineNumber = "334"
+            landmarkName = "-refleshData"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -511,12 +399,12 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "WeiZongBuIphone/Classes/Other/Lib/UI/RegViewController.m"
-            timestampString = "454412359.590343"
+            filePath = "WeiZongBuIphone/Classes/Message/Controller/MyPublishRequire/PublishNewRequireController.m"
+            timestampString = "461554220.178715"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "198"
-            endingLineNumber = "198"
+            startingLineNumber = "732"
+            endingLineNumber = "732"
             landmarkName = "-request:didFailWithError:"
             landmarkType = "5">
          </BreakpointContent>
@@ -527,12 +415,12 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "WeiZongBuIphone/Classes/Message/Controller/LoginViewController.m"
-            timestampString = "454485755.430931"
+            filePath = "WeiZongBuIphone/Classes/Message/Controller/MyPublishRequire/CityController.m"
+            timestampString = "460949553.154477"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "292"
-            endingLineNumber = "292"
+            startingLineNumber = "100"
+            endingLineNumber = "100"
             landmarkName = "-request:didFinishLoadingWithResult:"
             landmarkType = "5">
          </BreakpointContent>
@@ -543,13 +431,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "WeiZongBuIphone/Classes/Message/Controller/LoginViewController.m"
-            timestampString = "454485758.87096"
+            filePath = "WeiZongBuIphone/Classes/Partner/Controller/PartnerListController.m"
+            timestampString = "461833807.009381"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "297"
-            endingLineNumber = "297"
-            landmarkName = "-request:didFinishLoadingWithResult:"
+            startingLineNumber = "317"
+            endingLineNumber = "317"
+            landmarkName = "-menu:tableView:didSelectRowAtIndexPath:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -559,13 +447,29 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "WeiZongBuIphone/Classes/Message/Controller/LoginViewController.m"
-            timestampString = "454485761.862677"
+            filePath = "WeiZongBuIphone/Classes/Partner/Controller/PartnerListController.m"
+            timestampString = "461833807.009381"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "318"
-            endingLineNumber = "318"
-            landmarkName = "-request:didFinishLoadingWithResult:"
+            startingLineNumber = "460"
+            endingLineNumber = "460"
+            landmarkName = "-requestAndGetNationData"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "WeiZongBuIphone/Classes/NewMain/Main/Controller/XHYScrollingNavBarViewController.m"
+            timestampString = "463306496.475353"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "68"
+            endingLineNumber = "68"
+            landmarkName = "-handlePanGesture:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

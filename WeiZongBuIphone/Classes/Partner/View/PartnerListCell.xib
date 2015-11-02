@@ -35,7 +35,7 @@
                                 <color key="textColor" red="0.86703330592105265" green="0.57416735197368418" blue="0.13327508223684212" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="rz9-ao-Hd7">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="person_default" id="rz9-ao-Hd7">
                                 <rect key="frame" x="11" y="11" width="60" height="60"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
@@ -79,6 +79,7 @@
     </objects>
     <resources>
         <image name="parnterCell_BK.png" width="600" height="300"/>
+        <image name="person_default" width="195" height="195"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>

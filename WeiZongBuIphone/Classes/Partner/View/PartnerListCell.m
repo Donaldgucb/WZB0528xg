@@ -42,7 +42,16 @@
     _partnerListImage.layer.masksToBounds=YES;
     _backView.layer.cornerRadius=8;
     _backView.layer.masksToBounds=YES;
-    [WZBImageTool downLoadImage:partnerList.imageUrl imageView:_partnerListImage];
+    NSRange range = [partnerList.imageUrl rangeOfString:@"/img"];
+    NSInteger index = range.location+range.length;
+    NSString *imageString =[partnerList.imageUrl substringFromIndex:index];
+    if (imageString.length>0) {
+        [WZBImageTool downLoadImage:partnerList.imageUrl imageView:_partnerListImage];
+    }
+    else
+        _partnerListImage.image = [UIImage imageNamed:@"person_default.png"];
+    
+//    [WZBImageTool downLoadImage:partnerList.imageUrl imageView:_partnerListImage];
 }
 
 

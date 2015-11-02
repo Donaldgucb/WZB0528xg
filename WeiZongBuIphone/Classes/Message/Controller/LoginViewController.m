@@ -25,6 +25,8 @@
 #import "SectionsViewControllerFriends.h"
 #import "SMS_MBProgressHUD+Add.h"
 #import <AddressBook/AddressBook.h>
+#import "RegistrationViewController.h"
+#import "XGPush.h"
 
 
 
@@ -227,6 +229,12 @@
     
     [self presentViewController:nav animated:YES completion:nil];
     
+    
+//    RegistrationViewController *regist = [[RegistrationViewController alloc] init];
+//    UINavigationController *nav=[[UINavigationController alloc]initWithRootViewController:regist];
+//    
+//    [self presentViewController:nav animated:YES completion:nil];
+    
 }
 
 
@@ -338,6 +346,8 @@
         [plist setDataFilePathCollcetionCheckPlist:collcetionArray];
         
          [[NSNotificationCenter defaultCenter] postNotificationName:@"LoginNotification" object:self userInfo:@{@"name":@"1"}];
+        
+        [XGPush setAccount:_usernameTextField.text];
     }
     
   
@@ -347,6 +357,7 @@
 
 -(void)request:(WZBRequest *)request didFailWithError:(NSError *)error
 {
+    NSLog(@"%@",error);
     statusInt=1;
     [SVProgressHUD showErrorWithStatus:@"加载失败,请检查网络!"];
 }

@@ -17,6 +17,7 @@
 #import "StaticMethod.h"
 #import "WZBAPI.h"
 #import "PlistDB.h"
+#import "CountryViewController.h"
 
 #define cellString @"publishCell"
 
@@ -34,6 +35,7 @@
     NSString *thirdField;
     NSString *provice;
     NSString *city;
+    NSString *nationId;
     NSString *lowPrice;
     NSString *highPrice;
     NSString *level;
@@ -58,6 +60,7 @@
     NSString *emailString;
     NSString *proviceString;
     NSString *cityString;
+    NSString *nationString;
     
     
     
@@ -229,7 +232,7 @@
     if(section==0)
         return 7;
     else if(section==1)
-        return 3;
+        return 4;
     else
         return 1;
 }
@@ -477,6 +480,7 @@
                 _telText.tag=12;
             }
             _telText.delegate=self;
+            _telText.keyboardType = UIKeyboardTypeNumberPad;
             _telText.placeholder = @"请输入联系电话";
             _telText.font = [UIFont systemFontOfSize:12];
             [cell addSubview:_telText];
@@ -503,24 +507,24 @@
             
             
         }
-//        else if(row==3)
-//        {
-//            UIImageView *view =[self cellBackImageView];
-//            view.image = [UIImage imageNamed:@"footCellArrow.png"];
-//            [cell addSubview:view];
-//            
-//            UILabel *label = [self titleLabel];
-//            label.text = @"地区";
-//            [cell addSubview:label];
-//            
-//            if (_zoneText==nil) {
-//                _zoneText = [[UITextField alloc] initWithFrame:CGRectMake(100, 8, 200, 28)];
-//            }
-//            _zoneText.userInteractionEnabled=NO;
-//            _zoneText.placeholder = @"请选择接标地区";
-//            _zoneText.font = [UIFont systemFontOfSize:12];
-//            [cell addSubview:_zoneText];
-//        }
+        else if(row==3)
+        {
+            UIImageView *view =[self cellBackImageView];
+            view.image = [UIImage imageNamed:@"footCellArrow.png"];
+            [cell addSubview:view];
+            
+            UILabel *label = [self titleLabel];
+            label.text = @"地区";
+            [cell addSubview:label];
+            
+            if (_zoneText==nil) {
+                _zoneText = [[UITextField alloc] initWithFrame:CGRectMake(100, 8, 200, 28)];
+            }
+            _zoneText.userInteractionEnabled=NO;
+            _zoneText.placeholder = @"请选择接标地区";
+            _zoneText.font = [UIFont systemFontOfSize:12];
+            [cell addSubview:_zoneText];
+        }
 
     }
     else if(section==2)
@@ -601,8 +605,12 @@
     else if (section==1) {
         [self clickClearButton];
         if (row==3) {
-            ProviceController *provice11 = [[ProviceController alloc] init];
-            [self.navigationController pushViewController:provice11 animated:YES];
+//            ProviceController *provice11 = [[ProviceController alloc] init];
+//            [self.navigationController pushViewController:provice11 animated:YES];
+            
+            
+            CountryViewController *country = [[CountryViewController alloc] init];
+            [self.navigationController pushViewController:country animated:YES];
         }
     }
 
@@ -680,13 +688,20 @@
     peopleString = [NSString stringWithFormat:@"&name=%@",_peopleText.text];
     telString = [NSString stringWithFormat:@"&telphone=%@",_telText.text];
     emailString = [NSString stringWithFormat:@"&email=%@",_emailText.text];
-    proviceString = [NSString stringWithFormat:@"&provinceId=%@",@"1"];
-    cityString = [NSString stringWithFormat:@"&cityId=%@",@"1"];
+    if (provice==nil) {
+        provice=@"0";
+    }
+    proviceString = [NSString stringWithFormat:@"&provinceId=%@",provice];
+    if (city==nil) {
+        city=@"0";
+    }
+    cityString = [NSString stringWithFormat:@"&cityId=%@",city];
+    nationString = [NSString stringWithFormat:@"&nationId=%@",nationId];
 //    partnerLevelString = [NSString stringWithFormat:@"&partnerLevel=%@",level];
     partnerLevelString = [NSString stringWithFormat:@"&partnerLevel=%@",@"0"];
     
     
-    paramString = [accountString stringByAppendingFormat:@"%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@",titleString,detailString,specialString,keyWordString,firstFieldString,secondFieldString,thirdFieldString,lowPriceString,highPriceString,endDateString,peopleString,telString,emailString,proviceString,cityString,partnerLevelString];
+    paramString = [accountString stringByAppendingFormat:@"%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@",titleString,detailString,specialString,keyWordString,firstFieldString,secondFieldString,thirdFieldString,lowPriceString,highPriceString,endDateString,peopleString,telString,emailString,proviceString,cityString,partnerLevelString,nationString];
     
   
     [[WZBAPI sharedWZBAPI] requestWithURL:url paramsString:paramString delegate:self];
@@ -748,6 +763,7 @@
     self.zoneText.text = [nameDictionary objectForKey:@"name"];
     city =[nameDictionary objectForKey:@"cityID"];
     provice = [nameDictionary objectForKey:@"proviceID"];
+    nationId = [nameDictionary objectForKey:@"nationId"];
 }
 
 -(void)ChangeDetailNotification:(NSNotification*)notification{

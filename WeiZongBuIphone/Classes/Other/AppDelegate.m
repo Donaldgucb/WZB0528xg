@@ -18,6 +18,9 @@
 #import <SMS_SDK/SMS_SDK.h>
 #import "XXYNavigationController.h"
 #import "WBNavigationController.h"
+#import "MyPublishRequireController.h"
+#import "MLNavigationController.h"
+#import "MainViewController.h"
 
 #import "BPush.h"
 #import "XGPush.h"
@@ -26,9 +29,9 @@
 #import "PlistDB.h"
 #define _IPHONE80_ 80000
 
-@interface AppDelegate ()
+@interface AppDelegate ()<UIAlertViewDelegate>
 
-
+@property(nonatomic,copy)NSString *pushKey;
 @end
 
 
@@ -124,7 +127,8 @@
     
     [self.window makeKeyAndVisible];
     
-    
+    //设置帐号（别名）
+    [XGPush setAccount:@"123456"];
     
     [XGPush startApp:2200112061 appKey:@"ITG1N3I615JN"];
     //[XGPush startApp:2290000353 appKey:@"key1"];
@@ -277,21 +281,57 @@
     [XGPush handleReceiveNotification:userInfo];
     NSLog(@"%@",userInfo);
     
+
     
     //回调版本示例
      void (^successBlock)(void) = ^(void){
      //成功之后的处理
      NSLog(@"[XGPush]handleReceiveNotification successBlock");
          NSString *alert = [[userInfo objectForKey:@"aps"] objectForKey:@"alert"];
+         NSString *key1 = [userInfo objectForKey:@"key1"];
+         self.pushKey = key1;
          if (application.applicationState == UIApplicationStateActive) {
              // Nothing to do if applicationState is Inactive, the iOS already displayed an alert view.
              UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"收到一条推送"
                                                                  message:[NSString stringWithFormat:@"推送的内容:\n%@", alert]
                                                                 delegate:self
-                                                       cancelButtonTitle:@"确定"
-                                                       otherButtonTitles:nil];
+                                                       cancelButtonTitle:@"取消"
+                                                       otherButtonTitles:@"查看",nil];
              [alertView show];
          }
+         else if (application.applicationState == UIApplicationStateInactive)
+         {
+             NSLog(@"________inactive__________");
+             UIViewController *controller = self.window.rootViewController.childViewControllers[0];
+             UIViewController *controller1 = controller.childViewControllers[0];
+             if ([@"1"isEqualToString:key1]) {
+                 MyPublishRequireController *publishReuqire=[[MyPublishRequireController alloc] init];
+                 
+                 [controller1.navigationController pushViewController:publishReuqire animated:YES];
+             }
+             else
+             {
+                 NSLog(@"我收到的需求列表");
+             }
+         }
+         else if (application.applicationState == UIApplicationStateBackground)
+         {
+             NSLog(@"________background__________");
+             UIViewController *controller = self.window.rootViewController.childViewControllers[0];
+             UIViewController *controller1 = controller.childViewControllers[0];
+             if ([@"1"isEqualToString:key1]) {
+                     MyPublishRequireController *publishReuqire=[[MyPublishRequireController alloc] init];
+                     
+                     [controller1.navigationController pushViewController:publishReuqire animated:YES];
+             }
+             else
+             {
+                 NSLog(@"我收到的需求列表");
+             }
+         }
+         
+         
+         
          [application setApplicationIconBadgeNumber:0];
 
          
@@ -313,35 +353,36 @@
 
 
 
-//- (void) onMethod:(NSString*)method response:(NSDictionary*)data {
-//    NSDictionary* res = [[NSDictionary alloc] initWithDictionary:data] ;
-//    if ([BPushRequestMethodBind isEqualToString:method]) {
-//        NSString *appid = [res valueForKey:BPushRequestAppIdKey];
-//        NSString *userid = [res valueForKey:BPushRequestUserIdKey];
-//        NSString *channelid = [res valueForKey:BPushRequestChannelIdKey];
-//        //NSString *requestid = [res valueForKey:BPushRequestRequestIdKey];
-//        PlistDB *plist = [[PlistDB alloc] init];
-//        NSMutableArray *array = [NSMutableArray array];
-//        [array addObject:userid];
-//        [array addObject:channelid];
-//        [plist setDataFilePathBaiduIDPlist:array];
-//
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex==1) {
+//        NSMutableArray *arr =[NSMutableArray array];
+//        for (UIViewController *controller in self.window.rootViewController.childViewControllers) {
+//            [arr addObject:controller.childViewControllers[0]];
+//        }
+//        NSLog(@"%@",arr);
 //        
-//        
-//        
-//        // 在内存中备份，以便短时间内进入可以看到这些值，而不需要重新bind
-//        self.appId = appid;
-//        self.channelId = channelid;
-//        self.userId = userid;
-//        
-//    }
-//    else if ([BPushRequestMethodUnbind isEqualToString:method]) {
-//        
-//    }
-//
-//   
-//}
+//    [[NSNotificationCenter defaultCenter] postNotificationName:@"PushInfoNotification" object:self userInfo:@{@"key1":@"1"}];
+        
+        
+        UIViewController *controller = self.window.rootViewController.childViewControllers[0];
+        UIViewController *controller1 = controller.childViewControllers[0];
+        
+        if ([self.pushKey isEqualToString:@"1"]) {
+            
+            MyPublishRequireController *publishReuqire=[[MyPublishRequireController alloc] init];
+            
+            [controller1.navigationController pushViewController:publishReuqire animated:YES];
+        }
+        else
+        {
+            NSLog(@"我收到的需求列表");
+        }
+        
+       
 
+    }
+}
 
 
 

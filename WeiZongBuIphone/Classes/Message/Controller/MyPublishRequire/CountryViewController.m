@@ -1,34 +1,42 @@
 //
-//  CityController.m
+//  CountryViewController.m
 //  WeiZongBuIphone
 //
-//  Created by Donald on 15/3/25.
+//  Created by Donald on 15/7/17.
 //  Copyright (c) 2015年 chen. All rights reserved.
 //
 
-#import "CityController.h"
+#import "CountryViewController.h"
 #import "WZBAPI.h"
 #import "StaticMethod.h"
 #import "WZBDomain.h"
+#import "ProviceController.h"
 
-@interface CityController ()<UITableViewDataSource,UITableViewDelegate,WZBRequestDelegate>
+@interface CountryViewController ()<UITableViewDataSource,UITableViewDelegate,WZBRequestDelegate>
 
-
-@property(nonatomic,strong)UITableView *listTable;
-@property(nonatomic,strong)NSMutableArray *resultArray;
+@property(nonatomic,strong)NSMutableArray *countrylistArray;
+@property(nonatomic,strong)UITableView *tableView;
 
 @end
 
-@implementation CityController
+@implementation CountryViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    // Do any additional setup after loading the view.
     
     [self baseSetting];
     
-    [self requestAndGetSubField];
+}
+
+
+-(NSMutableArray *)countrylistArray
+{
+    if (!_countrylistArray) {
+        self.countrylistArray= [NSMutableArray array];
+    }
     
-    
+    return _countrylistArray;
 }
 
 #pragma mark 基本设置
@@ -58,7 +66,7 @@
     //页面主题
     UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake((navView.frame.size.width - 200)/2, StatusbarSize , 200, 40)];
     titleLabel.textColor= [UIColor blackColor];
-    [titleLabel setText:@"选择城市"];
+    [titleLabel setText:@"国家选择"];
     [titleLabel setTextAlignment:NSTextAlignmentCenter];
     [titleLabel setFont:[UIFont boldSystemFontOfSize:16]];
     [titleLabel setBackgroundColor:[UIColor clearColor]];
@@ -72,15 +80,17 @@
     [self.view addSubview:back];
     
     
-    _listTable = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, self.view.frame.size.width, self.view.frame.size.height-64) style:UITableViewStylePlain];
-    _listTable.dataSource=self;
-    _listTable.delegate=self;
+    [self requestAndGetCountryList];
     
-    [self.view addSubview:_listTable];
+    UITableView *country = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, self.view.frame.size.width, self.view.frame.size.height-64) style:UITableViewStylePlain];
+    country.delegate = self;
+    country.dataSource = self;
+    [self.view addSubview:country];
+    _tableView = country;
+    
+ 
     
 }
-
-
 
 -(void)clickBack
 {
@@ -88,78 +98,69 @@
 }
 
 
-
--(void)requestAndGetSubField
-{
-    NSString *url = [_subDomain substringFromIndex:1];
-    NSString *accountString = [StaticMethod getAccountString];
-    [[WZBAPI sharedWZBAPI] requestWithURL:url paramsString:accountString delegate:self];
+#pragma mark 请求获取国家列表
+-(void)requestAndGetCountryList{
+    
+    [[WZBAPI sharedWZBAPI] requestWithURL:@"wzbAppService/meta/getNameListFromRedis/0.htm" paramsString:[StaticMethod getAccountString] delegate:self];
+    
 }
-
 
 -(void)request:(WZBRequest *)request didFinishLoadingWithResult:(id)result
 {
-    NSArray *array = result;
-    _resultArray = [NSMutableArray array];
-    for (NSDictionary *dict in array) {
-        WZBDomain *domain = [[WZBDomain alloc] init];
-        domain.name = [dict objectForKey:@"name"];
-        domain.subField = [dict objectForKey:@"subField"];
-        domain.parentId = [dict objectForKey:@"parentId"];
-        domain.mainId = [dict objectForKey:@"id"];
-        [_resultArray addObject:domain];
+    NSArray *resultArray = result;
+    for (NSDictionary *dict in resultArray) {
+        WZBDomain *country = [[WZBDomain alloc] init];
+        country.name = [dict objectForKey:@"name"];
+        country.subField = [dict objectForKey:@"subField"];
+        country.parentId = [NSString stringWithFormat:@"%@",[dict objectForKey:@"id"]];
+        [self.countrylistArray addObject:country];
     }
-    [_listTable reloadData];
+    [_tableView reloadData];
 }
-
 
 -(void)request:(WZBRequest *)request didFailWithError:(NSError *)error
 {
-    
+    NSLog(@"error");
 }
 
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return _resultArray.count;
-}
-
-
--(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return 44;
+    return self.countrylistArray.count;
 }
 
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *identify = @"cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identify];
+    static NSString * identify=@"Cell";
+    UITableViewCell *cell=[tableView dequeueReusableCellWithIdentifier:identify];
     if (cell==nil) {
         cell=[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identify];
     }
     
-    WZBDomain *domain = [[WZBDomain alloc] init];
-    domain = _resultArray[indexPath.row];
-    cell.textLabel.text=domain.name;
-    cell.selectionStyle=UITableViewCellSelectionStyleNone;
+    WZBDomain *country = self.countrylistArray[indexPath.row];
+    cell.textLabel.text = country.name;
+    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    
+    
     return cell;
 }
 
+
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    WZBDomain *domain = [[WZBDomain alloc] init];
-    domain = _resultArray[indexPath.row];
-    NSString *zoneString = [NSString stringWithFormat:@"%@%@",_proviceString,domain.name];
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"ChangeZoneNotification" object:self userInfo:@{@"name":zoneString,@"proviceID":_proviceId,@"cityID":domain.mainId,@"nationId":self.nationId}];
-//    [self.navigationController popToRootViewControllerAnimated:YES];
+    WZBDomain *domain = self.countrylistArray[indexPath.row];
+    ProviceController *provice = [[ProviceController alloc] init];
+    provice.subField =[domain.subField substringFromIndex:1];
+    provice.domainName = domain.name;
+    provice.nationID = domain.parentId;
+    NSLog(@"%@",provice.nationID);
+    [self.navigationController pushViewController:provice animated:YES];
     
-    //定义一个数组来接收所有导航控制器里的视图控制器
-    NSArray *controllers = self.navigationController.viewControllers;
-    //根据索引号直接pop到指定视图
-    [self.navigationController popToViewController:[controllers objectAtIndex:1] animated:YES];
+    
+    
+    
     
 }
-
 
 @end

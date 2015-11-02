@@ -12,7 +12,7 @@
 #import <AssetsLibrary/AssetsLibrary.h>
 #import <MobileCoreServices/MobileCoreServices.h>
 #import "ProviceController.h"
-#import "DemoTextField.h"
+//#import "DemoTextField.h"
 #import "CredentialsChooseController.h"
 #import "StaticMethod.h"
 #import "SBJson.h"
@@ -20,6 +20,7 @@
 #import "SVProgressHUD.h"
 #import "DomainController.h"
 #import "WZBImageTool.h"
+#import "CountryViewController.h"
 
 #define ORIGINAL_MAX_WIDTH 640.0f
 
@@ -27,6 +28,7 @@
 {
     NSString *provice;
     NSString *city;
+    NSString *nation;
     NSString *credentialsNameType;
     NSString *imageUrl;
     BOOL isImagePost;
@@ -34,6 +36,7 @@
     NSString *firstField;
     NSString *secondField;
     NSString *thirdField;
+    NSString *nationId;
     BOOL isGetFirstInfo;
     BOOL isFinishEdit;
     NSString *partnerID;
@@ -173,14 +176,14 @@
     
     
     
-//    _addressTextField = [[DemoTextField alloc] initWithFrame:CGRectMake(20, 588, 280, 40)];
-//    _addressTextField.placeholder = @"地区";
-//    _addressTextField.textColor = [UIColor blackColor];
-//    _addressTextField.backgroundColor = [UIColor whiteColor];
-//    _addressTextField.userInteractionEnabled=NO;
-//    [_scroll addSubview:_addressTextField];
+    _addressTextField = [[DemoTextField alloc] initWithFrame:CGRectMake(20, 588, 280, 40)];
+    _addressTextField.placeholder = @"地区";
+    _addressTextField.textColor = [UIColor blackColor];
+    _addressTextField.backgroundColor = [UIColor whiteColor];
+    _addressTextField.userInteractionEnabled=NO;
+    [_scroll addSubview:_addressTextField];
     
-    _domainTextField = [[DemoTextField alloc] initWithFrame:CGRectMake(20, 588, 280, 40)];
+    _domainTextField = [[DemoTextField alloc] initWithFrame:CGRectMake(20, 636, 280, 40)];
     _domainTextField.placeholder = @"领域";
     _domainTextField.textColor = [UIColor blackColor];
     _domainTextField.backgroundColor = [UIColor whiteColor];
@@ -212,17 +215,17 @@
     [_scroll addSubview:credentialsNameButton];
     _credentialsNameButton = credentialsNameButton;
     
-//    //地址
-//    UIButton *addressButton = [UIButton buttonWithType:UIButtonTypeCustom];
-//    addressButton.frame = CGRectMake(20, 588, 280, 40);
-//    addressButton.backgroundColor = [UIColor clearColor];
-//    [addressButton addTarget:self action:@selector(clickAddress) forControlEvents:UIControlEventTouchDown];
-//    [_scroll addSubview:addressButton];
-//    _addressButton = addressButton;
+    //地址
+    UIButton *addressButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    addressButton.frame = CGRectMake(20, 588, 280, 40);
+    addressButton.backgroundColor = [UIColor clearColor];
+    [addressButton addTarget:self action:@selector(clickAddress) forControlEvents:UIControlEventTouchDown];
+    [_scroll addSubview:addressButton];
+    _addressButton = addressButton;
     
     //领域
     UIButton *domainButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    domainButton.frame = CGRectMake(20, 588, 280, 40);
+    domainButton.frame = CGRectMake(20, 636, 280, 40);
     domainButton.backgroundColor = [UIColor clearColor];
     [domainButton addTarget:self action:@selector(clickDomainButton) forControlEvents:UIControlEventTouchDown];
     [_scroll addSubview:domainButton];
@@ -231,7 +234,7 @@
     
     //提交按钮
     UIButton *submitButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    submitButton.frame = CGRectMake(20, 636, 280, 40);
+    submitButton.frame = CGRectMake(20, 684, 280, 40);
     [submitButton setImage:[UIImage imageNamed:@"talentSubmitBtn.png"] forState:UIControlStateNormal];
     [submitButton addTarget:self action:@selector(clickSubmit) forControlEvents:UIControlEventTouchDown];
     [_scroll addSubview:submitButton];
@@ -261,15 +264,21 @@
     NSMutableDictionary *jsonDict = [NSMutableDictionary dictionary];
     [jsonDict setValue:_aliPayAccountTextField.text forKey:@"aliPayAccount"];
     [jsonDict setValue:_ageTextField.text forKey:@"birthday"];
-    [jsonDict setValue:@"1" forKey:@"cityId"];
-    [jsonDict setValue:@"1" forKey:@"provinceId"];
+    if (city==nil) {
+        city=@"0";
+    }
+    [jsonDict setValue:city forKey:@"cityId"];
+    if (provice==nil) {
+        provice=@"0";
+    }
+    [jsonDict setValue:provice forKey:@"provinceId"];
     [jsonDict setValue:_classicalCaseTextField.text forKey:@"classicalCase"];
     [jsonDict setValue:_credentialsIDTextField.text forKey:@"credentialsId"];
     [jsonDict setValue:credentialsNameType forKey:@"credentialsType"];
     [jsonDict setValue:_detailSkillsTextField.text forKey:@"detailSkills"];
     [jsonDict setValue:_emailTextField.text forKey:@"email"];
     [jsonDict setValue:_nameTextField.text forKey:@"name"];
-    [jsonDict setValue:@"0" forKey:@"nationId"];
+    [jsonDict setValue:nationId forKey:@"nationId"];
     [jsonDict setValue:_searchKeyWordTextField.text forKey:@"searchKeyWord"];
     [jsonDict setValue:_hornorTextField.text forKey:@"serverForCom"];
     [jsonDict setValue:sexString forKey:@"sex"];
@@ -307,8 +316,8 @@
 #pragma mark 点击地区按钮
 -(void)clickAddress
 {
-    ProviceController *provice11 = [[ProviceController alloc] init];
-    [self.navigationController pushViewController:provice11 animated:YES];
+    CountryViewController *country = [[CountryViewController alloc] init];
+    [self.navigationController pushViewController:country animated:YES];
 }
 
 
@@ -506,11 +515,19 @@
         _searchKeyWordTextField.text = [dict objectForKey:@"searchKeyWord"];
         _hornorTextField.text = [dict objectForKey:@"serverForCom"];
         _phoneTextField.text = [dict objectForKey:@"telphone"];
-//        NSString *addressString = [dict objectForKey:@"chProvince"];
-//        addressString = [addressString stringByAppendingString:[dict objectForKey:@"chCity"]];
-//        _addressTextField.text = addressString;
-        city = [dict objectForKey:@"cityId"];
-        provice = [dict objectForKey:@"provinceId"];
+        nationId = [NSString stringWithFormat:@"%@",[dict objectForKey:@"nationId"] ];
+        NSString *addressString;
+        if ([nationId isEqualToString:@"1"]) {
+            addressString=@"中国";
+            addressString = [addressString stringByAppendingString:[dict objectForKey:@"chProvince"] ];
+            addressString = [addressString stringByAppendingString:[dict objectForKey:@"chCity"]];
+            _addressTextField.text = addressString;
+            city = [dict objectForKey:@"cityId"];
+            provice = [dict objectForKey:@"provinceId"];
+            
+        }
+        else
+            addressString=@"海外";
         
         NSArray *domainArray = [dict objectForKey:@"domainIds"];
         for (NSDictionary *domainDit in domainArray) {
@@ -596,6 +613,8 @@
     _addressTextField.text = [nameDictionary objectForKey:@"name"];
     city =[nameDictionary objectForKey:@"cityID"];
     provice = [nameDictionary objectForKey:@"proviceID"];
+    nationId = [nameDictionary objectForKey:@"nationId"];
+    
 }
 
 -(void)ChangeCredentialNotification:(NSNotification*)notification{
